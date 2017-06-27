@@ -9,7 +9,6 @@ const styles = require('./record-modal.css');
 const backIcon = require('./icon--back.svg');
 const stopIcon = require('./icon--stop-playback.svg');
 const playIcon = require('./icon--play.svg');
-const trimIcon = require('./icon--trim.svg');
 
 const PlaybackStep = props => (
     <Box>
@@ -63,7 +62,7 @@ const PlaybackStep = props => (
                 disabled={props.encoding}
                 onClick={props.onSubmit}
             >
-                <img src={trimIcon} /> {props.encoding ? 'Loading...' : 'Trim'}
+                {props.encoding ? 'Loading...' : 'Save'}
             </button>
         </Box>
     </Box>
