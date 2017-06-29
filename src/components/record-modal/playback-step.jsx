@@ -24,7 +24,7 @@ const PlaybackStep = props => (
             <Box className={styles.waveformContainer}>
                 <Waveform
                     data={props.levels}
-                    height={150}
+                    height={149}
                     level={0}
                     width={480}
                 />
