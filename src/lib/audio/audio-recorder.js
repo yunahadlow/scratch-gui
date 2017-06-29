@@ -18,8 +18,12 @@ class AudioRecorder {
     }
 
     startListening (onUpdate, onError) {
+        const getUserMedia = (navigator.getUserMedia ||
+                              navigator.webkitGetUserMedia ||
+                              navigator.mozGetUserMedia ||
+                              navigator.msGetUserMedia);
         try {
-            navigator.getUserMedia({audio: true}, userMediaStream => {
+            getUserMedia.call(navigator, {audio: true}, userMediaStream => {
                 this.attachUserMediaStream(userMediaStream, onUpdate);
             }, e => {
                 onError(e);
