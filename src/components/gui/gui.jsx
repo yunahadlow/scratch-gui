@@ -82,7 +82,10 @@ const GUIComponent = props => {
                                 <CostumeTab vm={vm} />
                             </TabPanel>
                             <TabPanel className={tabClassNames.tabPanel}>
-                                <SoundTab vm={vm} />
+                                <SoundTab
+                                    isVisible={tabIndex === 2} // Sounds tab
+                                    vm={vm}
+                                />
                             </TabPanel>
                         </Tabs>
                     </Box>

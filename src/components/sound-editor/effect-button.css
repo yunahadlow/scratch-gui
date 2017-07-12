@@ -1,0 +1,90 @@
+.effect-container {
+    position: relative;
+    flex-basis: 150px;
+}
+
+.effect-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 3px;
+    font-size: 0.75rem;
+}
+
+.effect-button-icon {
+    width: 60px;
+    padding: 5px;
+    transition: 0.2s;
+    user-select: none;
+    user-drag: none;
+    -webkit-user-drag: none; /* Autoprefixer doesn't seem to work for this */
+
+}
+
+.effect-button:hover .effect-button-icon, .isActive .effect-button-icon {
+    transform: scale(1.2);
+}
+.isActive .effect-button-icon {
+    filter: hue-rotate(-60deg);
+}
+
+
+.effect-button-label {
+    margin-top: 0.25rem;
+    color: #5d647a;
+}
+
+.effect-popover {
+    position: absolute;
+    background: #f8f8f8;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    display: flex;
+    margin-top: 1rem;
+    left: 5px;
+    z-index: 50; /* above target info/stage */
+    box-shadow: 3px 3px 5px #888888;
+    outline: none;
+}
+
+$arrow-thickness: 10px;
+
+.effect-popover:before, .effect-popover:after {
+	content: "";
+	position: absolute;
+	border-left: $arrow-thickness solid transparent;
+	border-right: $arrow-thickness solid transparent;
+	top: calc(-1 * $arrow-thickness);
+	left: 50px;
+	margin-left: -$arrow-thickness;
+    transform: rotate(180deg);
+}
+
+.effect-popover:before {
+	border-top: $arrow-thickness solid #DDD;
+	margin-top: -1px;
+}
+
+.effect-popover:after{
+	border-top: $arrow-thickness solid #f8f8f8;
+	margin-top: 1px;
+	z-index: 1;
+}
+
+.effect-input {
+
+}
+
+.submit-button, .cancel-button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.cancel-button {
+
+}

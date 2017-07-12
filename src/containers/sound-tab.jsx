@@ -25,7 +25,19 @@ class SoundTab extends React.Component {
             'handleSelectSound',
             'handleDeleteSound'
         ]);
-        this.state = {selectedSoundIndex: 0};
+
+        const {
+            editingTarget,
+            sprites,
+            stage
+        } = props;
+
+        const target = editingTarget && sprites[editingTarget] ? sprites[editingTarget] : stage;
+
+        this.state = {
+            soundsCount: target && target.sounds ? target.sounds.length : 0,
+            selectedSoundIndex: 0
+        };
     }
 
     componentWillReceiveProps (nextProps) {
@@ -37,8 +49,18 @@ class SoundTab extends React.Component {
 
         const target = editingTarget && sprites[editingTarget] ? sprites[editingTarget] : stage;
 
-        if (target && target.sounds && this.state.selectedSoundIndex > target.sounds.length - 1) {
-            this.setState({selectedSoundIndex: Math.max(target.sounds.length - 1, 0)});
+        if (target && target.sounds) {
+            const nextSoundsCount = target.sounds.length;
+            if (this.state.selectedSoundIndex > target.sounds.length - 1) {
+                this.setState({selectedSoundIndex: Math.max(0, target.sounds.length - 1)});
+            }
+            if (nextSoundsCount > this.state.soundsCount) {
+                this.setState({selectedSoundIndex: Math.max(0, nextSoundsCount - 1)});
+            }
+
+            if (target.sounds.length !== this.state.soundsCount) {
+                this.setState({soundsCount: target.sounds.length});
+            }
         }
     }
 
@@ -53,6 +75,7 @@ class SoundTab extends React.Component {
     render () {
         const {
             editingTarget,
+            isVisible,
             sprites,
             stage,
             onNewSoundFromLibraryClick,
@@ -106,7 +129,7 @@ class SoundTab extends React.Component {
                 onDeleteClick={this.handleDeleteSound}
                 onItemClick={this.handleSelectSound}
             >
-                {target.sounds && target.sounds.length > 0 ? (
+                {target.sounds && target.sounds.length > 0 && isVisible ? (
                     <SoundEditor soundIndex={this.state.selectedSoundIndex} />
                 ) : null}
                 {this.props.soundRecorderVisible ? (
@@ -119,6 +142,7 @@ class SoundTab extends React.Component {
 
 SoundTab.propTypes = {
     editingTarget: PropTypes.string,
+    isVisible: PropTypes.bool.isRequired,
     onNewSoundFromLibraryClick: PropTypes.func.isRequired,
     onNewSoundFromRecordingClick: PropTypes.func.isRequired,
     soundRecorderVisible: PropTypes.bool,
