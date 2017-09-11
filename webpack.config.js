@@ -4,6 +4,7 @@ var webpack = require('webpack');
 // Plugins
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 // PostCss
 var autoprefixer = require('autoprefixer');
@@ -77,7 +78,8 @@ module.exports = {
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'lib',
-            filename: 'lib.min.js'
+            filename: 'lib.min.js',
+            minChunks: Infinity
         }),
         new HtmlWebpackPlugin({
             chunks: ['lib', 'gui'],
@@ -101,6 +103,7 @@ module.exports = {
             to: 'static/blocks-media'
         }])
     ].concat(process.env.NODE_ENV === 'production' ? [
+        new SWPrecacheWebpackPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             include: /\.min\.js$/,
             minimize: true
